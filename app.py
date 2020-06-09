@@ -15,3 +15,7 @@ if __name__ == "__main__":
     #サーバーを起動するよ
     app.run(debug=True)
     #デバッグモードを有効にするよ
+
+@app.route("/favaorite/<text>")
+def test2(text):
+    return text + "いいね！！"
