@@ -17,5 +17,5 @@ if __name__ == "__main__":
     #デバッグモードを有効にするよ
 
 @app.route("/favorite/<text>")
-def hello(text):
+def greet(text):
     return text + "いいね！！"
