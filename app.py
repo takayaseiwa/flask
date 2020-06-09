@@ -16,6 +16,6 @@ if __name__ == "__main__":
     app.run(debug=True)
     #デバッグモードを有効にするよ
 
-@app.route("/favaorite/<text>")
+@app.route("/favorite/<text>")
 def test2(text):
     return text + "いいね！！"
