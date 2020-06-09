@@ -11,11 +11,12 @@ def test():
 def hello(text):
     return text + "さん、こんにちは"
 
+@app.route("/favorite/<text>")
+def greet(text):
+    return text + "いいね！！"
+
 if __name__ == "__main__":
     #サーバーを起動するよ
     app.run(debug=True)
     #デバッグモードを有効にするよ
 
-@app.route("/favorite/<text>")
-def greet(text):
-    return text + "いいね！！"
