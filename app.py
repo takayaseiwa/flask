@@ -1,3 +1,5 @@
+import sqlite3
+
 from flask import Flask , render_template
 #flaskのflask,render_templateを使用します宣言
 app = Flask(__name__)
@@ -29,7 +31,7 @@ def dbtest():
     c = conn.cursor()
     #ecebute:実行する
     c.execute("select name, adress from users where id = 1")
-    # fitchone:フェッチ：実査に取得する
+    # fetchone:フェッチ：実査に取得する
     user_info = c.fetchone(）
     # データベース接続終了
     c.close()
