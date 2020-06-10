@@ -15,6 +15,10 @@ def hello(text):
 def greet(text):
     return text + "いいね！！"
 
+@app.errorhandler(404)
+def notfound(code):
+    return "404ペーーーーーーージ"
+
 if __name__ == "__main__":
     #サーバーを起動するよ
     app.run(debug=True)
