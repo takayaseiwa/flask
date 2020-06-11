@@ -63,7 +63,7 @@ def add_post():
 
 
 @app.route("/del/<int:id>")
-def del_tsek():
+def del_task(id):
     conn = sqlite3.connect('flask.db')
     c = conn.cursor()
     c.execute("delete from task where id =?",(id,))
