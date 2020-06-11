@@ -69,7 +69,7 @@ def task_list():
     c.execute("select id ,task from task where user_id = ?"(user_id,))
     task_list = []
     for row in c.fetchall():
-        task_list.append({"id:"row[0], "task":row[1]})
+        task_list.append({"id":row[0], "task":row[1]})
     c.close()
     return render_template("list.html", task_list = task_list)
 
