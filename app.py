@@ -61,6 +61,17 @@ def add_post():
     c.close()
     return "データを追加できました！"
 
+@app.route("/list")
+def task_list():
+    conn = sqlite3.connect('flask.db')
+    c = conn.cursor()
+    c.execute("select id ,task from task ")
+    task_list = []
+    for row in c.fetchall():
+        task_list.append({"id":row[0], "task":row[1]})
+    conn.close()
+    return render_template("list.html , task_list = task_list")
+
 
 @app.route("/del/<int:id>")
 def del_task(id):
