@@ -66,7 +66,7 @@ def add_post():
 def task_list():
     conn = sqlite3.connect('flasktest.db')
     c = conn.cursor()
-    c.execute("select id ,task from task where user_id = ?"(user_id,))
+    c.execute("select id ,task from task ")
     task_list = []
     for row in c.fetchall():
         task_list.append({"id":row[0], "task":row[1]})
