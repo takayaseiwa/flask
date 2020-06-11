@@ -63,14 +63,14 @@ def add_post():
 
 @app.route("/list")
 def task_list():
-    conn = sqlite3.connect('flask.db')
+    conn = sqlite3.connect("flask.db")
     c = conn.cursor()
     c.execute("select id ,task from task ")
     task_list = []
     for row in c.fetchall():
         task_list.append({"id":row[0], "task":row[1]})
     c.close()
-    return render_template("list.html , task_list = task_list")
+    return render_template("list.html" , task_list = task_list)
 
 
 @app.route("/del/<int:id>")
@@ -87,8 +87,21 @@ def del_task(id):
 def edit(id):
     conn = sqlite3.connect('flask.db')
     c = conn.cursor()
-    c.execute()
-    conn.commit()
+    c.execute("select task from task where id = ?",(id,))
+    task = c.fetchone()
+    conn.close()
+    return render_template("/edit.html",task = task)
+
+
+@app.route("/edit" , methods = ["POST"])
+def update_task():
+    item_id = request.form.get("task_id")
+    item_id = int(item_id)
+    task = request.form.get("task")
+    conn = sqlite3.connect('flask.db')
+    c = conn.cursor()
+    c.execute("update task set task = ? where id = ?",(task , item_id))
+    task = c.fetchone()
     conn.close()
     return redirect("/list")
 
