@@ -56,10 +56,11 @@ def add():
 @app.route("/add", methods={"POST"})
 def add_post():
     if "user_id" in session:
+        user_id = session["user_id"]
         task = request.form.get("task")
         conn = sqlite3.connect("flask.db")
         c = conn.cursor()
-        c.execute()
+        c.execute("insert into task values(null,?,?)",(task,user_id))
         conn.commit()
         c.close()
         return redirect("/list")
@@ -69,12 +70,13 @@ def add_post():
 @app.route("/list")
 def task_list():
     if "user_id" in session:
+        user_id = session["user_id"]
         conn = sqlite3.connect("flask.db")
         c = conn.cursor()
-        c.execute("select id ,task from task ")
+        c.execute("select id ,task from task where user_id = ?",(user_id,))
         task_list = []
         for row in c.fetchall():
-        task_list.append({"id":row[0], "task":row[1]})
+            task_list.append({"id":row[0], "task":row[1]})
         c.close()
         return render_template("task_list.html" , task_list = task_list)
     else:
@@ -161,10 +163,15 @@ def login_post():
         session["user_id"] = user_id[0]
         return redirect("/list")
 
+@app.route("/logout")
+def logout():
+    session.pop("user_id",None)
+    return redirect("/login")
+
 
 #-------------これより下にすると表示されない----------------
 if __name__ == "__main__":
     #サーバーを起動するよ
-    app.run(debug=True)
+    app.run(debug=True , host="0.0.0.0",port=9999)
     #デバッグモードを有効にするよ
 
